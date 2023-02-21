@@ -16,15 +16,15 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.models import Model
 
 # Separar los datos 
-input_folder ="flowers" 
-output = "processed_data"
+input_folder ="/mnt/vol/flowers" 
+output = "/mnt/vol/processed_data"
 splitfolders.ratio(input_folder,output, seed=42, ratio=(.6,.2,.2))
 
 img_height,img_width = (224,224)
 batch_size = 32
-train_data_dir = r"processed_data/train"
-valid_data_dir = r"processed_data/val"
-test_data_dir = r"processed_data/test"
+train_data_dir = r"/mnt/vol/processed_data/train"
+valid_data_dir = r"/mnt/vol/processed_data/val"
+test_data_dir = r"/mnt/vol/processed_data/test"
 
 train_datagen = ImageDataGenerator(preprocessing_function = preprocess_input,
                                   shear_range = 0.2,
@@ -68,12 +68,12 @@ model.compile(optimizer = 'adam', loss = 'categorical_crossentropy', metrics = [
 model.fit(train_generator,
                        epochs = 10 )
 
-model.save('Model/ResNet50_Flowers.h5')
+model.save('/mnt/vol/output/ResNet50_Flowers.h5')
 
 test_loss,test_acc = model.evaluate(test_generator, verbose=2)
 print('\nTest accuracy: ', test_acc)
 
 # Save text in an exterior file
 
-with open("example.txt", "w") as f:
+with open("/mnt/vol/output/example.txt", "w") as f:
     f.write(str(test_acc))
